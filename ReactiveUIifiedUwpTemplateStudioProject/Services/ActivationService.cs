@@ -82,11 +82,13 @@ namespace ReactiveUIifiedUwpTemplateStudioProject.Services
 
         private async Task InitializeAsync()
         {
+            await ThemeSelectorService.InitializeAsync();
             await Task.CompletedTask;
         }
 
         private async Task StartupAsync()
         {
+            ThemeSelectorService.SetRequestedTheme();
             await Task.CompletedTask;
         }
 
