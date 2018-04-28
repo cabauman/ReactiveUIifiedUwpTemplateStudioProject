@@ -137,4 +137,8 @@
     <value>Main</value>
     <comment>Page title for Main</comment>
   </data>
+  <data name="Shell_Main" xml:space="preserve">
+    <value>Main</value>
+    <comment>Navigation view item name for Main</comment>
+  </data>
 </root>

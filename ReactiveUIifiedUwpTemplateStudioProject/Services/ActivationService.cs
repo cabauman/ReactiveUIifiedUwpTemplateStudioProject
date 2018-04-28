@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using ReactiveUIifiedUwpTemplateStudioProject.Activation;
+
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-
-using ReactiveUIifiedUwpTemplateStudioProject.Activation;
 
 namespace ReactiveUIifiedUwpTemplateStudioProject.Services
 {

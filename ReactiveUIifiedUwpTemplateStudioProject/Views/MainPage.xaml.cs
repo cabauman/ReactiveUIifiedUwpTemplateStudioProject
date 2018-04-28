@@ -1,8 +1,8 @@
 ﻿using System;
 
-using Windows.UI.Xaml.Controls;
-
 using ReactiveUIifiedUwpTemplateStudioProject.ViewModels;
+
+using Windows.UI.Xaml.Controls;
 
 namespace ReactiveUIifiedUwpTemplateStudioProject.Views
 {

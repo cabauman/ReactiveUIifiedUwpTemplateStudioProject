@@ -1,9 +1,9 @@
 ﻿using System;
 
+using ReactiveUIifiedUwpTemplateStudioProject.Services;
+
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
-
-using ReactiveUIifiedUwpTemplateStudioProject.Services;
 
 namespace ReactiveUIifiedUwpTemplateStudioProject
 {
@@ -39,7 +39,12 @@ namespace ReactiveUIifiedUwpTemplateStudioProject
 
         private ActivationService CreateActivationService()
         {
-            return new ActivationService(this, typeof(ViewModels.MainViewModel));
+            return new ActivationService(this, typeof(ViewModels.MainViewModel), new Lazy<UIElement>(CreateShell));
+        }
+
+        private UIElement CreateShell()
+        {
+            return new Views.ShellPage();
         }
     }
 }

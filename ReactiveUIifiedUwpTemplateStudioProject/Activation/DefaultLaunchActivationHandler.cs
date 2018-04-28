@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-using Windows.ApplicationModel.Activation;
-
 using ReactiveUIifiedUwpTemplateStudioProject.Services;
+
+using Windows.ApplicationModel.Activation;
 
 namespace ReactiveUIifiedUwpTemplateStudioProject.Activation
 {
