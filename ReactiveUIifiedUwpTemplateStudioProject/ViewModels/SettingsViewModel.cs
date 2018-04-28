@@ -11,6 +11,13 @@ namespace ReactiveUIifiedUwpTemplateStudioProject.ViewModels
     // TODO WTS: Add other settings as necessary. For help see https://github.com/Microsoft/WindowsTemplateStudio/blob/master/docs/pages/settings.md
     public class SettingsViewModel : ReactiveObject
     {
+        public IScreen HostScreen { get; }
+
+        public string UrlPathSegment
+        {
+            get { return "settings-page"; }
+        }
+
         private ElementTheme _elementTheme = ThemeSelectorService.Theme;
 
         public ElementTheme ElementTheme
@@ -47,8 +54,9 @@ namespace ReactiveUIifiedUwpTemplateStudioProject.ViewModels
             }
         }
 
-        public SettingsViewModel()
+        public SettingsViewModel(IScreen screen)
         {
+            HostScreen = screen;
         }
 
         public void Initialize()

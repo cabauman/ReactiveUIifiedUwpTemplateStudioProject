@@ -10,8 +10,15 @@ using ReactiveUIifiedUwpTemplateStudioProject.Services;
 
 namespace ReactiveUIifiedUwpTemplateStudioProject.ViewModels
 {
-    public class MasterDetailViewModel : ReactiveObject
+    public class MasterDetailViewModel : ReactiveObject, IRoutableViewModel
     {
+        public IScreen HostScreen { get; }
+
+        public string UrlPathSegment
+        {
+            get { return "master-detail-page"; }
+        }
+
         private SampleOrder _selected;
 
         public SampleOrder Selected
@@ -22,8 +29,9 @@ namespace ReactiveUIifiedUwpTemplateStudioProject.ViewModels
 
         public ObservableCollection<SampleOrder> SampleItems { get; private set; } = new ObservableCollection<SampleOrder>();
 
-        public MasterDetailViewModel()
+        public MasterDetailViewModel(IScreen screen)
         {
+            HostScreen = screen;
         }
 
         public async Task LoadDataAsync(MasterDetailsViewState viewState)

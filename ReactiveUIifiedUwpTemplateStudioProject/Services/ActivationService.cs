@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using ReactiveUI;
 using ReactiveUIifiedUwpTemplateStudioProject.Activation;
 
 using Windows.ApplicationModel.Activation;
@@ -19,6 +19,7 @@ namespace ReactiveUIifiedUwpTemplateStudioProject.Services
         private readonly App _app;
         private readonly Lazy<UIElement> _shell;
         private readonly Type _defaultNavItem;
+        private readonly AutoSuspendHelper _autoSuspendHelper;
 
         private ViewModels.ViewModelLocator Locator => Application.Current.Resources["Locator"] as ViewModels.ViewModelLocator;
 
@@ -29,6 +30,7 @@ namespace ReactiveUIifiedUwpTemplateStudioProject.Services
             _app = app;
             _shell = shell;
             _defaultNavItem = defaultNavItem;
+            _autoSuspendHelper = new AutoSuspendHelper(app);
         }
 
         public async Task ActivateAsync(object activationArgs)
@@ -37,6 +39,8 @@ namespace ReactiveUIifiedUwpTemplateStudioProject.Services
             {
                 // Initialize things like registering background task before the app is loaded
                 await InitializeAsync();
+
+                _autoSuspendHelper.OnLaunched(activationArgs as IActivatedEventArgs);
 
                 // Do not repeat app initialization when the Window already has content,
                 // just ensure that the window is active
