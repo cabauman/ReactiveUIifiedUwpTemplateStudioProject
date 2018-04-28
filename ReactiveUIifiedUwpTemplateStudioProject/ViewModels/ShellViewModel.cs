@@ -179,6 +179,7 @@ namespace ReactiveUIifiedUwpTemplateStudioProject.ViewModels
             // Edit String/en-US/Resources.resw: Add a menu item title for each page
             _primaryItems.Add(new ShellNavigationItem("Shell_Main".GetLocalized(), Symbol.Document, typeof(MainViewModel).FullName));
             _secondaryItems.Add(new ShellNavigationItem("Shell_Settings".GetLocalized(), Symbol.Setting, typeof(SettingsViewModel).FullName));
+            _primaryItems.Add(new ShellNavigationItem("Shell_MasterDetail".GetLocalized(), Symbol.Document, typeof(MasterDetailViewModel).FullName));
         }
 
         private void ItemSelected(HamburgerMenuItemInvokedEventArgs args)

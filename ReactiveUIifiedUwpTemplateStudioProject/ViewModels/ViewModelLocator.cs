@@ -19,7 +19,10 @@ namespace ReactiveUIifiedUwpTemplateStudioProject.ViewModels
             SimpleIoc.Default.Register<ShellViewModel>();
             Register<MainViewModel, MainPage>();
             Register<SettingsViewModel, SettingsPage>();
+            Register<MasterDetailViewModel, MasterDetailPage>();
         }
+
+        public MasterDetailViewModel MasterDetailViewModel => ServiceLocator.Current.GetInstance<MasterDetailViewModel>();
 
         public SettingsViewModel SettingsViewModel => ServiceLocator.Current.GetInstance<SettingsViewModel>();
 
