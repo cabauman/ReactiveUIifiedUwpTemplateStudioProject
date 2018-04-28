@@ -1,7 +1,7 @@
 ﻿using System;
 
 using GalaSoft.MvvmLight;
-
+using ReactiveUI;
 using Windows.Foundation.Metadata;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -10,7 +10,7 @@ using Windows.UI.Xaml.Media;
 
 namespace ReactiveUIifiedUwpTemplateStudioProject.ViewModels
 {
-    public class ShellNavigationItem : ViewModelBase
+    public class ShellNavigationItem : ReactiveObject
     {
         public string Label { get; set; }
 
@@ -18,13 +18,12 @@ namespace ReactiveUIifiedUwpTemplateStudioProject.ViewModels
 
         public string ViewModelName { get; set; }
 
-        private Visibility _selectedVis = Visibility.Collapsed;
+        private Visibility _selectedVisibility = Visibility.Collapsed;
 
-        public Visibility SelectedVis
+        public Visibility SelectedVisibility
         {
-            get { return _selectedVis; }
-
-            set { Set(ref _selectedVis, value); }
+            get { return _selectedVisibility; }
+            set { this.RaiseAndSetIfChanged(ref _selectedVisibility, value); }
         }
 
         public char SymbolAsChar
@@ -72,10 +71,10 @@ namespace ReactiveUIifiedUwpTemplateStudioProject.ViewModels
 
             set
             {
-                Set(ref _isSelected, value);
+                this.RaiseAndSetIfChanged(ref _isSelected, value);
 
                 bool isFcu = ApiInformation.IsApiContractPresent("Windows.Foundation.UniversalApiContract", 5);
-                SelectedVis = isFcu && value ? Visibility.Visible : Visibility.Collapsed;
+                SelectedVisibility = isFcu && value ? Visibility.Visible : Visibility.Collapsed;
 
                 SelectedForeground = IsSelected
                     ? Application.Current.Resources["SystemControlForegroundAccentBrush"] as SolidColorBrush
@@ -88,8 +87,7 @@ namespace ReactiveUIifiedUwpTemplateStudioProject.ViewModels
         public SolidColorBrush SelectedForeground
         {
             get { return _selectedForeground ?? (_selectedForeground = GetStandardTextColorBrush()); }
-
-            set { Set(ref _selectedForeground, value); }
+            set { this.RaiseAndSetIfChanged(ref _selectedForeground, value); }
         }
 
         public ShellNavigationItem(string label, Symbol symbol, string viewModelName)

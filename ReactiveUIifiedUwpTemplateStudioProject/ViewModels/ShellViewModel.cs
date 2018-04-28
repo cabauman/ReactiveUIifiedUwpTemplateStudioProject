@@ -9,7 +9,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 
 using Microsoft.Toolkit.Uwp.UI.Controls;
-
+using ReactiveUI;
 using ReactiveUIifiedUwpTemplateStudioProject.Helpers;
 using ReactiveUIifiedUwpTemplateStudioProject.Services;
 using ReactiveUIifiedUwpTemplateStudioProject.Views;
@@ -20,7 +20,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace ReactiveUIifiedUwpTemplateStudioProject.ViewModels
 {
-    public class ShellViewModel : ViewModelBase
+    public class ShellViewModel : ReactiveObject
     {
         private const string PanoramicStateName = "PanoramicState";
         private const string WideStateName = "WideState";
@@ -41,7 +41,7 @@ namespace ReactiveUIifiedUwpTemplateStudioProject.ViewModels
         public bool IsPaneOpen
         {
             get { return _isPaneOpen; }
-            set { Set(ref _isPaneOpen, value); }
+            set { this.RaiseAndSetIfChanged(ref _isPaneOpen, value); }
         }
 
         private object _selected;
@@ -49,7 +49,7 @@ namespace ReactiveUIifiedUwpTemplateStudioProject.ViewModels
         public object Selected
         {
             get { return _selected; }
-            set { Set(ref _selected, value); }
+            set { this.RaiseAndSetIfChanged(ref _selected, value); }
         }
 
         private SplitViewDisplayMode _displayMode = SplitViewDisplayMode.CompactInline;
@@ -57,7 +57,7 @@ namespace ReactiveUIifiedUwpTemplateStudioProject.ViewModels
         public SplitViewDisplayMode DisplayMode
         {
             get { return _displayMode; }
-            set { Set(ref _displayMode, value); }
+            set { this.RaiseAndSetIfChanged(ref _displayMode, value); }
         }
 
         private object _lastSelectedItem;
@@ -67,7 +67,7 @@ namespace ReactiveUIifiedUwpTemplateStudioProject.ViewModels
         public ObservableCollection<ShellNavigationItem> PrimaryItems
         {
             get { return _primaryItems; }
-            set { Set(ref _primaryItems, value); }
+            set { this.RaiseAndSetIfChanged(ref _primaryItems, value); }
         }
 
         private ObservableCollection<ShellNavigationItem> _secondaryItems = new ObservableCollection<ShellNavigationItem>();
@@ -75,7 +75,7 @@ namespace ReactiveUIifiedUwpTemplateStudioProject.ViewModels
         public ObservableCollection<ShellNavigationItem> SecondaryItems
         {
             get { return _secondaryItems; }
-            set { Set(ref _secondaryItems, value); }
+            set { this.RaiseAndSetIfChanged(ref _secondaryItems, value); }
         }
 
         private ICommand _openPaneCommand;

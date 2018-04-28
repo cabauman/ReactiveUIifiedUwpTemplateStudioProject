@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 
 using Microsoft.Toolkit.Uwp.UI.Controls;
-
+using ReactiveUI;
 using ReactiveUIifiedUwpTemplateStudioProject.Models;
 using ReactiveUIifiedUwpTemplateStudioProject.Services;
 
 namespace ReactiveUIifiedUwpTemplateStudioProject.ViewModels
 {
-    public class MasterDetailViewModel : ViewModelBase
+    public class MasterDetailViewModel : ReactiveObject
     {
         private SampleOrder _selected;
 
         public SampleOrder Selected
         {
             get { return _selected; }
-            set { Set(ref _selected, value); }
+            set { this.RaiseAndSetIfChanged(ref _selected, value); }
         }
 
         public ObservableCollection<SampleOrder> SampleItems { get; private set; } = new ObservableCollection<SampleOrder>();

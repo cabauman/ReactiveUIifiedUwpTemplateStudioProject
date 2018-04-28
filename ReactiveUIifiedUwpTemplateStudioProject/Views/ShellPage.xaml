@@ -27,7 +27,7 @@
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         Fill="{ThemeResource SystemControlForegroundAccentBrush}"
-                        Visibility="{x:Bind SelectedVis, Mode=OneWay}" />
+                        Visibility="{x:Bind SelectedVisibility, Mode=OneWay}" />
                 </Grid>
                 <Viewbox
                     Child="{x:Bind Icon}"
