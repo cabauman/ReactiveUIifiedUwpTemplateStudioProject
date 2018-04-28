@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Windows.Input;
 
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
 using ReactiveUI;
 using ReactiveUIifiedUwpTemplateStudioProject.Services;
 
@@ -30,15 +27,15 @@ namespace ReactiveUIifiedUwpTemplateStudioProject.ViewModels
             set { this.RaiseAndSetIfChanged(ref _versionDescription, value); }
         }
 
-        private ICommand _switchThemeCommand;
+        private ReactiveCommand _switchThemeCommand;
 
-        public ICommand SwitchThemeCommand
+        public ReactiveCommand SwitchThemeCommand
         {
             get
             {
                 if (_switchThemeCommand == null)
                 {
-                    _switchThemeCommand = new RelayCommand<ElementTheme>(
+                    _switchThemeCommand = ReactiveCommand.CreateFromTask<ElementTheme>(
                         async (param) =>
                         {
                             ElementTheme = param;

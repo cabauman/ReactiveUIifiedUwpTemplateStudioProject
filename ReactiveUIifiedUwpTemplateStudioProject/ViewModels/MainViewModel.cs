@@ -1,6 +1,5 @@
 ﻿using System;
 
-using GalaSoft.MvvmLight;
 using ReactiveUI;
 
 namespace ReactiveUIifiedUwpTemplateStudioProject.ViewModels

@@ -1,18 +1,11 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Input;
-
-using CommonServiceLocator;
-
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
 
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using ReactiveUI;
 using ReactiveUIifiedUwpTemplateStudioProject.Helpers;
 using ReactiveUIifiedUwpTemplateStudioProject.Services;
-using ReactiveUIifiedUwpTemplateStudioProject.Views;
 
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -78,45 +71,45 @@ namespace ReactiveUIifiedUwpTemplateStudioProject.ViewModels
             set { this.RaiseAndSetIfChanged(ref _secondaryItems, value); }
         }
 
-        private ICommand _openPaneCommand;
+        private ReactiveCommand _openPaneCommand;
 
-        public ICommand OpenPaneCommand
+        public ReactiveCommand OpenPaneCommand
         {
             get
             {
                 if (_openPaneCommand == null)
                 {
-                    _openPaneCommand = new RelayCommand(() => IsPaneOpen = !_isPaneOpen);
+                    _openPaneCommand = ReactiveCommand.Create(() => IsPaneOpen = !_isPaneOpen);
                 }
 
                 return _openPaneCommand;
             }
         }
 
-        private ICommand _itemSelected;
+        private ReactiveCommand _itemSelected;
 
-        public ICommand ItemSelectedCommand
+        public ReactiveCommand ItemSelectedCommand
         {
             get
             {
                 if (_itemSelected == null)
                 {
-                    _itemSelected = new RelayCommand<HamburgerMenuItemInvokedEventArgs>(ItemSelected);
+                    _itemSelected = ReactiveCommand.Create<HamburgerMenuItemInvokedEventArgs>(ItemSelected);
                 }
 
                 return _itemSelected;
             }
         }
 
-        private ICommand _stateChangedCommand;
+        private ReactiveCommand _stateChangedCommand;
 
-        public ICommand StateChangedCommand
+        public ReactiveCommand StateChangedCommand
         {
             get
             {
                 if (_stateChangedCommand == null)
                 {
-                    _stateChangedCommand = new RelayCommand<Windows.UI.Xaml.VisualStateChangedEventArgs>(args => GoToState(args.NewState.Name));
+                    _stateChangedCommand = ReactiveCommand.Create<VisualStateChangedEventArgs>(args => GoToState(args.NewState.Name));
                 }
 
                 return _stateChangedCommand;

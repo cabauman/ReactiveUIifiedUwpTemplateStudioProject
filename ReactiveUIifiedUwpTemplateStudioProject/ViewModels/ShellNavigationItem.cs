@@ -1,7 +1,7 @@
 ﻿using System;
 
-using GalaSoft.MvvmLight;
 using ReactiveUI;
+
 using Windows.Foundation.Metadata;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
