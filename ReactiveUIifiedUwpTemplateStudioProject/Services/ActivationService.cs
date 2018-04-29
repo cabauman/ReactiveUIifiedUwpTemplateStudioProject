@@ -30,7 +30,10 @@ namespace ReactiveUIifiedUwpTemplateStudioProject.Services
             _app = app;
             _shell = shell;
             _defaultNavItem = defaultNavItem;
-            _autoSuspendHelper = new AutoSuspendHelper(app);
+
+            //RxApp.SuspensionHost.CreateNewAppState = () => new AppBootstrapper();
+            //RxApp.SuspensionHost.SetupDefaultSuspendResume();
+            //_autoSuspendHelper = new AutoSuspendHelper(app);
         }
 
         public async Task ActivateAsync(object activationArgs)
@@ -40,7 +43,7 @@ namespace ReactiveUIifiedUwpTemplateStudioProject.Services
                 // Initialize things like registering background task before the app is loaded
                 await InitializeAsync();
 
-                _autoSuspendHelper.OnLaunched(activationArgs as IActivatedEventArgs);
+                //_autoSuspendHelper.OnLaunched(activationArgs as IActivatedEventArgs);
 
                 // Do not repeat app initialization when the Window already has content,
                 // just ensure that the window is active

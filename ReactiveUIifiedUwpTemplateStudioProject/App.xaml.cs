@@ -20,9 +20,6 @@ namespace ReactiveUIifiedUwpTemplateStudioProject
         {
             InitializeComponent();
 
-            RxApp.SuspensionHost.CreateNewAppState = () => new object();
-            RxApp.SuspensionHost.SetupDefaultSuspendResume();
-
             // Deferred execution until used. Check https://msdn.microsoft.com/library/dd642331(v=vs.110).aspx for further info on Lazy<T> class.
             _activationService = new Lazy<ActivationService>(CreateActivationService);
         }
@@ -42,7 +39,7 @@ namespace ReactiveUIifiedUwpTemplateStudioProject
 
         private ActivationService CreateActivationService()
         {
-            return new ActivationService(this, typeof(AppBootstrapper), new Lazy<UIElement>(CreateShell));
+            return new ActivationService(this, typeof(ViewModels.MainViewModel), new Lazy<UIElement>(CreateShell));
         }
 
         private UIElement CreateShell()
