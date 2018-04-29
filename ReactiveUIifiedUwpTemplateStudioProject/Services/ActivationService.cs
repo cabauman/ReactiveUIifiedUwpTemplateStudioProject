@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ReactiveUI;
 using ReactiveUIifiedUwpTemplateStudioProject.Activation;
+using Splat;
 
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Core;
@@ -21,9 +22,7 @@ namespace ReactiveUIifiedUwpTemplateStudioProject.Services
         private readonly Type _defaultNavItem;
         private readonly AutoSuspendHelper _autoSuspendHelper;
 
-        private ViewModels.ViewModelLocator Locator => Application.Current.Resources["Locator"] as ViewModels.ViewModelLocator;
-
-        private NavigationServiceEx NavigationService => Locator.NavigationService;
+        private NavigationServiceEx NavigationService => Locator.Current.GetService<NavigationServiceEx>();
 
         public ActivationService(App app, Type defaultNavItem, Lazy<UIElement> shell = null)
         {

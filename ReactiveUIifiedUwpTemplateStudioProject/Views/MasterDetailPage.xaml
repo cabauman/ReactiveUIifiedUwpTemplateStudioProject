@@ -5,7 +5,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Style="{StaticResource PageStyle}"
-    DataContext="{Binding MasterDetailViewModel, Source={StaticResource Locator}}"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:model="using:ReactiveUIifiedUwpTemplateStudioProject.Models"
     xmlns:views="using:ReactiveUIifiedUwpTemplateStudioProject.Views"
