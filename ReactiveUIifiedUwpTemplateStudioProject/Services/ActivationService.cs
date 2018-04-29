@@ -19,20 +19,18 @@ namespace ReactiveUIifiedUwpTemplateStudioProject.Services
     {
         private readonly App _app;
         private readonly Lazy<UIElement> _shell;
-        private readonly Type _defaultNavItem;
         private readonly AutoSuspendHelper _autoSuspendHelper;
 
         private NavigationServiceEx NavigationService => Locator.Current.GetService<NavigationServiceEx>();
 
-        public ActivationService(App app, Type defaultNavItem, Lazy<UIElement> shell = null)
+        public ActivationService(App app, Lazy<UIElement> shell = null)
         {
             _app = app;
             _shell = shell;
-            _defaultNavItem = defaultNavItem;
 
-            //RxApp.SuspensionHost.CreateNewAppState = () => new AppBootstrapper();
-            //RxApp.SuspensionHost.SetupDefaultSuspendResume();
-            //_autoSuspendHelper = new AutoSuspendHelper(app);
+            RxApp.SuspensionHost.CreateNewAppState = () => new AppBootstrapper();
+            RxApp.SuspensionHost.SetupDefaultSuspendResume();
+            _autoSuspendHelper = new AutoSuspendHelper(app);
         }
 
         public async Task ActivateAsync(object activationArgs)
@@ -42,7 +40,7 @@ namespace ReactiveUIifiedUwpTemplateStudioProject.Services
                 // Initialize things like registering background task before the app is loaded
                 await InitializeAsync();
 
-                //_autoSuspendHelper.OnLaunched(activationArgs as IActivatedEventArgs);
+                _autoSuspendHelper.OnLaunched(activationArgs as IActivatedEventArgs);
 
                 // Do not repeat app initialization when the Window already has content,
                 // just ensure that the window is active
@@ -50,6 +48,8 @@ namespace ReactiveUIifiedUwpTemplateStudioProject.Services
                 {
                     // Create a Frame to act as the navigation context and navigate to the first page
                     Window.Current.Content = _shell?.Value ?? new Frame();
+                    // Put the ReactiveUI MainWindow (IScreen) inside of the shell frame.
+                    NavigationService.Frame.Navigate(typeof(MainWindow));
                     NavigationService.NavigationFailed += (sender, e) =>
                     {
                         throw e.Exception;
@@ -72,12 +72,6 @@ namespace ReactiveUIifiedUwpTemplateStudioProject.Services
 
             if (IsInteractive(activationArgs))
             {
-                var defaultHandler = new DefaultLaunchActivationHandler(_defaultNavItem);
-                if (defaultHandler.CanHandle(activationArgs))
-                {
-                    await defaultHandler.HandleAsync(activationArgs);
-                }
-
                 // Ensure the current window is active
                 Window.Current.Activate();
 

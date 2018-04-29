@@ -6,6 +6,7 @@ using Microsoft.Toolkit.Uwp.UI.Controls;
 using ReactiveUI;
 using ReactiveUIifiedUwpTemplateStudioProject.Helpers;
 using ReactiveUIifiedUwpTemplateStudioProject.Services;
+using Splat;
 
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -25,7 +26,7 @@ namespace ReactiveUIifiedUwpTemplateStudioProject.ViewModels
         {
             get
             {
-                return CommonServiceLocator.ServiceLocator.Current.GetInstance<NavigationServiceEx>();
+                return Locator.Current.GetService<NavigationServiceEx>();
             }
         }
 
@@ -170,9 +171,9 @@ namespace ReactiveUIifiedUwpTemplateStudioProject.ViewModels
             // More on Segoe UI Symbol icons: https://docs.microsoft.com/windows/uwp/style/segoe-ui-symbol-font
             // Or to use an IconElement instead of a Symbol see https://github.com/Microsoft/WindowsTemplateStudio/blob/master/docs/projectTypes/navigationpane.md
             // Edit String/en-US/Resources.resw: Add a menu item title for each page
-            _primaryItems.Add(new ShellNavigationItem("Shell_Main".GetLocalized(), Symbol.Document, typeof(MainViewModel).FullName));
-            _secondaryItems.Add(new ShellNavigationItem("Shell_Settings".GetLocalized(), Symbol.Setting, typeof(SettingsViewModel).FullName));
-            _primaryItems.Add(new ShellNavigationItem("Shell_MasterDetail".GetLocalized(), Symbol.Document, typeof(MasterDetailViewModel).FullName));
+            _primaryItems.Add(new ShellNavigationItem("Shell_Main".GetLocalized(), Symbol.Document, () => new MainViewModel(null)));
+            _primaryItems.Add(new ShellNavigationItem("Shell_MasterDetail".GetLocalized(), Symbol.Document, () => new MasterDetailViewModel(null)));
+            _secondaryItems.Add(new ShellNavigationItem("Shell_Settings".GetLocalized(), Symbol.Setting, () => new SettingsViewModel(null)));
         }
 
         private void ItemSelected(HamburgerMenuItemInvokedEventArgs args)
@@ -189,7 +190,7 @@ namespace ReactiveUIifiedUwpTemplateStudioProject.ViewModels
         {
             if (e != null)
             {
-                var vm = NavigationService.GetNameOfRegisteredPage(e.SourcePageType);
+                var vm = e.SourcePageType.FullName;
                 var navigationItem = PrimaryItems?.FirstOrDefault(i => i.ViewModelName == vm);
                 if (navigationItem == null)
                 {
@@ -220,10 +221,9 @@ namespace ReactiveUIifiedUwpTemplateStudioProject.ViewModels
 
         private void Navigate(object item)
         {
-            var navigationItem = item as ShellNavigationItem;
-            if (navigationItem != null)
+            if(item is ShellNavigationItem navigationItem)
             {
-                NavigationService.Navigate(navigationItem.ViewModelName);
+                NavigationService.Navigate(navigationItem.ViewModelFactory?.Invoke());
             }
         }
     }

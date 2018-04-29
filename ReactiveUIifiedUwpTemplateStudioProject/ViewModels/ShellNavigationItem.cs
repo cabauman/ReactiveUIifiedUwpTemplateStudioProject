@@ -12,11 +12,13 @@ namespace ReactiveUIifiedUwpTemplateStudioProject.ViewModels
 {
     public class ShellNavigationItem : ReactiveObject
     {
-        public string Label { get; set; }
+        public string Label { get; }
 
-        public Symbol Symbol { get; set; }
+        public Symbol Symbol { get; }
 
-        public string ViewModelName { get; set; }
+        public Func<IRoutableViewModel> ViewModelFactory { get; }
+
+        public string ViewModelName { get; }
 
         private Visibility _selectedVisibility = Visibility.Collapsed;
 
@@ -90,22 +92,23 @@ namespace ReactiveUIifiedUwpTemplateStudioProject.ViewModels
             set { this.RaiseAndSetIfChanged(ref _selectedForeground, value); }
         }
 
-        public ShellNavigationItem(string label, Symbol symbol, string viewModelName)
-            : this(label, viewModelName)
+        public ShellNavigationItem(string label, Symbol symbol, Func<IRoutableViewModel> viewModelFactory)
+            : this(label, viewModelFactory)
         {
             Symbol = symbol;
         }
 
-        public ShellNavigationItem(string label, IconElement icon, string viewModelName)
-            : this(label, viewModelName)
+        public ShellNavigationItem(string label, IconElement icon, Func<IRoutableViewModel> viewModelFactory)
+            : this(label, viewModelFactory)
         {
             _iconElement = icon;
         }
 
-        public ShellNavigationItem(string label, string viewModelName)
+        public ShellNavigationItem(string label, Func<IRoutableViewModel> viewModelFactory)
         {
             Label = label;
-            ViewModelName = viewModelName;
+            ViewModelFactory = viewModelFactory;
+            ViewModelName = viewModelFactory.GetType().FullName;
         }
 
         private SolidColorBrush GetStandardTextColorBrush()

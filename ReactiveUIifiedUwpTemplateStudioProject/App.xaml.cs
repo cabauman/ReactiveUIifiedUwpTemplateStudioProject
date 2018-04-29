@@ -39,7 +39,7 @@ namespace ReactiveUIifiedUwpTemplateStudioProject
 
         private ActivationService CreateActivationService()
         {
-            return new ActivationService(this, typeof(ViewModels.MainViewModel), new Lazy<UIElement>(CreateShell));
+            return new ActivationService(this, new Lazy<UIElement>(CreateShell));
         }
 
         private UIElement CreateShell()

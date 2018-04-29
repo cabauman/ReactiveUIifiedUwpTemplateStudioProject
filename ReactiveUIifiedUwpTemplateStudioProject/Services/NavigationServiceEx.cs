@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using ReactiveUI;
 using ReactiveUIifiedUwpTemplateStudioProject.Helpers;
 
 using Windows.UI.Xaml;
@@ -16,8 +16,6 @@ namespace ReactiveUIifiedUwpTemplateStudioProject.Services
         public event NavigatedEventHandler Navigated;
 
         public event NavigationFailedEventHandler NavigationFailed;
-
-        private readonly Dictionary<string, Type> _pages = new Dictionary<string, Type>();
 
         private Frame _frame;
 
@@ -50,59 +48,16 @@ namespace ReactiveUIifiedUwpTemplateStudioProject.Services
 
         public void GoForward() => Frame.GoForward();
 
-        public bool Navigate(string pageKey, object parameter = null, NavigationTransitionInfo infoOverride = null)
-        {
-            Type page;
-            lock (_pages)
-            {
-                if (!_pages.TryGetValue(pageKey, out page))
-                {
-                    throw new ArgumentException(string.Format("ExceptionNavigationServiceExPageNotFound".GetLocalized(), pageKey), nameof(pageKey));
-                }
-            }
+        public IScreen HostScreen { get; }
 
-            if (Frame.Content?.GetType() != page)
-            {
-                var navigationResult = Frame.Navigate(page, parameter, infoOverride);
-                return navigationResult;
-            }
-            else
-            {
-                return false;
-            }
+        public NavigationServiceEx(IScreen screen)
+        {
+            HostScreen = screen;
         }
 
-        public void Configure(string key, Type pageType)
+        public void Navigate(IRoutableViewModel viewModel)
         {
-            lock (_pages)
-            {
-                if (_pages.ContainsKey(key))
-                {
-                    throw new ArgumentException(string.Format("ExceptionNavigationServiceExKeyIsInNavigationService".GetLocalized(), key));
-                }
-
-                if (_pages.Any(p => p.Value == pageType))
-                {
-                    throw new ArgumentException(string.Format("ExceptionNavigationServiceExTypeAlreadyConfigured".GetLocalized(), _pages.First(p => p.Value == pageType).Key));
-                }
-
-                _pages.Add(key, pageType);
-            }
-        }
-
-        public string GetNameOfRegisteredPage(Type page)
-        {
-            lock (_pages)
-            {
-                if (_pages.ContainsValue(page))
-                {
-                    return _pages.FirstOrDefault(p => p.Value == page).Key;
-                }
-                else
-                {
-                    throw new ArgumentException(string.Format("ExceptionNavigationServiceExPageUnknow".GetLocalized(), page.Name));
-                }
-            }
+            HostScreen.Router.Navigate.Execute(viewModel);
         }
 
         private void RegisterFrameEvents()

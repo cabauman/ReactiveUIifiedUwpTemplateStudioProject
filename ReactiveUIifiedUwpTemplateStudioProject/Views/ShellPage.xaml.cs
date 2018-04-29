@@ -21,7 +21,7 @@ namespace ReactiveUIifiedUwpTemplateStudioProject.Views
         public ShellPage()
         {
             InitializeComponent();
-            DataContext = ViewModel;
+            ViewModel = new ShellViewModel();
             ViewModel.Initialize(shellFrame);
         }
     }

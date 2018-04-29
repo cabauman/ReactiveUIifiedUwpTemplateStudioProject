@@ -1,4 +1,5 @@
 ﻿using ReactiveUI;
+using ReactiveUIifiedUwpTemplateStudioProject.Services;
 using ReactiveUIifiedUwpTemplateStudioProject.ViewModels;
 using ReactiveUIifiedUwpTemplateStudioProject.Views;
 using Splat;
@@ -24,7 +25,9 @@ namespace ReactiveUIifiedUwpTemplateStudioProject
         private void RegisterParts(IMutableDependencyResolver dependencyResolver)
         {
             dependencyResolver.RegisterConstant(this, typeof(IScreen));
+            dependencyResolver.RegisterConstant(new NavigationServiceEx(this), typeof(NavigationServiceEx));
 
+            dependencyResolver.Register(() => new ShellPage(), typeof(IViewFor<ShellViewModel>));
             dependencyResolver.Register(() => new MainPage(), typeof(IViewFor<MainViewModel>));
             dependencyResolver.Register(() => new MasterDetailPage(), typeof(IViewFor<MasterDetailViewModel>));
             dependencyResolver.Register(() => new SettingsPage(), typeof(IViewFor<SettingsViewModel>));
