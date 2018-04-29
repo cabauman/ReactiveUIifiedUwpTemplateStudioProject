@@ -9,7 +9,7 @@ using Windows.UI.Xaml;
 namespace ReactiveUIifiedUwpTemplateStudioProject.ViewModels
 {
     // TODO WTS: Add other settings as necessary. For help see https://github.com/Microsoft/WindowsTemplateStudio/blob/master/docs/pages/settings.md
-    public class SettingsViewModel : ReactiveObject
+    public class SettingsViewModel : ReactiveObject, IRoutableViewModel
     {
         public IScreen HostScreen { get; }
 
