@@ -1,5 +1,5 @@
 ﻿using System;
-
+using ReactiveUI;
 using ReactiveUIifiedUwpTemplateStudioProject.Services;
 using ReactiveUIifiedUwpTemplateStudioProject.ViewModels;
 
@@ -8,11 +8,14 @@ using Windows.UI.Xaml.Navigation;
 
 namespace ReactiveUIifiedUwpTemplateStudioProject.Views
 {
-    public sealed partial class ShellPage : Page
+    public sealed partial class ShellPage : IViewFor<ShellViewModel>
     {
-        private ShellViewModel ViewModel
+        public ShellViewModel ViewModel { get; set; }
+
+        object IViewFor.ViewModel
         {
-            get { return DataContext as ShellViewModel; }
+            get { return ViewModel; }
+            set { ViewModel = (ShellViewModel)value; }
         }
 
         public ShellPage()

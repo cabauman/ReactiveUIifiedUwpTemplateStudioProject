@@ -1,5 +1,5 @@
 ﻿using System;
-
+using ReactiveUI;
 using ReactiveUIifiedUwpTemplateStudioProject.ViewModels;
 
 using Windows.UI.Xaml;
@@ -7,11 +7,14 @@ using Windows.UI.Xaml.Controls;
 
 namespace ReactiveUIifiedUwpTemplateStudioProject.Views
 {
-    public sealed partial class MasterDetailPage : Page
+    public sealed partial class MasterDetailPage : IViewFor<MasterDetailViewModel>
     {
-        private MasterDetailViewModel ViewModel
+        public MasterDetailViewModel ViewModel { get; set; }
+
+        object IViewFor.ViewModel
         {
-            get { return DataContext as MasterDetailViewModel; }
+            get { return ViewModel; }
+            set { ViewModel = (MasterDetailViewModel)value; }
         }
 
         public MasterDetailPage()
