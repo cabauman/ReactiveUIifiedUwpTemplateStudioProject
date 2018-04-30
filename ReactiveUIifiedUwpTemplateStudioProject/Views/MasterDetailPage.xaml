@@ -11,11 +11,6 @@
     xmlns:fcu ="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract,5)"
     xmlns:cu ="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract,5)"
     mc:Ignorable="d">
-    <Page.Transitions>
-        <TransitionCollection>
-            <NavigationThemeTransition />
-        </TransitionCollection>
-    </Page.Transitions>
     <Page.Resources>
         <DataTemplate x:Key="ItemTemplate" x:DataType="model:SampleOrder">
             <Grid Height="64" Padding="0,8">
